@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://maps.gstatic.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' https://maps.googleapis.com https://nominatim.openstreetmap.org https://ihlqjrqlribexyssocbt.supabase.co wss://ihlqjrqlribexyssocbt.supabase.co https://cdn.jsdelivr.net; frame-src https:; form-action 'self' https: mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap">
+<title>Preuves opé.</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, h4, h5, h6 { font-size:28px;font-weight:700;line-height:1.2;color:#111111 }
+p { font-size:16px;line-height:1.6;color:#374151 }
+h1 { font-family:'Roboto', sans-serif;font-size:36px;font-weight:700;color:#ff9300 }
+h2 { font-family:'Roboto', sans-serif;font-size:20px;font-weight:600;color:#ffffff;background:#ffffff;border-color:#075335 }
+.sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.skip-link{position:absolute;left:-999px;top:0;background:#0f172a;color:#fff;padding:.6rem 1rem;z-index:1000;}
+.skip-link:focus{left:0;}
+:focus-visible{outline:3px solid #1a56db;outline-offset:2px;}
+a.qtis-btn{text-decoration:none;display:inline-block;color:inherit;}
+.qtis-pagenav{display:flex;flex-wrap:wrap;gap:.25rem;align-items:center;padding:.6rem 1rem;border-bottom:1px solid #e5e7eb;background:#fff;}
+.qtis-pagenav a{color:#111;text-decoration:none;padding:.35rem .7rem;border-radius:6px;font-size:.9rem;}
+.qtis-pagenav a:hover{background:#f3f4f6;}
+nav .qtis-navlink{color:inherit;text-decoration:none;padding:.3rem .6rem;border-radius:6px;}
+nav .qtis-navlink:hover{background:#f3f4f6;}
+.qtis-video{position:relative;width:100%;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;border-radius:8px;}
+.qtis-video iframe,.qtis-video video{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.qtis-nav{display:flex;flex-wrap:wrap;gap:.25rem;align-items:center;}
+.qtis-nav-v{flex-direction:column;align-items:stretch;}
+.qtis-nav-tabs{gap:0;border-bottom:1px solid #e5e7eb;}
+.qtis-nav-tabs .qtis-navlink{border-radius:0;border-bottom:2px solid transparent;padding:.6rem .9rem;}
+.qtis-nav-tabs .qtis-navlink.active{border-bottom-color:#1a56db;color:#1a56db;font-weight:600;}
+.qtis-breadcrumb{font-size:.9rem;color:#6b7280;gap:.35rem;}
+.qtis-breadcrumb a{color:#1a56db;text-decoration:none;}
+.qtis-breadcrumb a:hover{text-decoration:underline;}
+.qtis-breadcrumb .sep{color:#9ca3af;}
+.qtis-breadcrumb [aria-current]{color:#111;font-weight:600;}
+.qtis-burger{position:relative;}
+.qtis-burger-btn{background:none;border:1px solid #e5e7eb;border-radius:8px;padding:.35rem .6rem;font-size:1.15rem;line-height:1;cursor:pointer;}
+.qtis-burger-panel{display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:50;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:180px;padding:.3rem;flex-direction:column;}
+.qtis-burger-panel.open{display:flex;}
+.qtis-burger-panel .qtis-navlink{padding:.5rem .7rem;}
+html{scroll-behavior:smooth;}
+.qtis-tabbar{display:flex;flex-wrap:wrap;gap:.15rem;border-bottom:1px solid #e5e7eb;margin-bottom:14px;}
+.qtis-tab{border:none;background:none;padding:.55rem .9rem;cursor:pointer;border-bottom:2px solid transparent;font:inherit;color:#374151;}
+.qtis-tab.active{border-bottom-color:#1a56db;color:#1a56db;font-weight:600;}
+.qtis-accordion{display:flex;flex-direction:column;gap:.4rem;}
+.qtis-accitem{border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;}
+.qtis-accsum{cursor:pointer;padding:.7rem 1rem;font-weight:600;list-style:none;background:#f8fafc;}
+.qtis-accsum::-webkit-details-marker{display:none;}
+.qtis-accsum::after{content:"\25BE";float:right;transition:transform .2s;}
+details[open] > .qtis-accsum::after{transform:rotate(180deg);}
+.qtis-accbody{padding:.85rem 1rem;}
+.qtis-toc-title{font-weight:700;margin-bottom:.3rem;}
+.qtis-toc ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.1rem;}
+.qtis-toc a{color:#1a56db;text-decoration:none;padding:.2rem 0;display:inline-block;}
+.qtis-toc a:hover{text-decoration:underline;}
+.qtis-totop{position:fixed;right:18px;bottom:18px;z-index:900;width:44px;height:44px;border-radius:50%;border:none;background:#1a56db;color:#fff;font-size:20px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;visibility:hidden;transition:opacity .25s;}
+.qtis-totop.show{opacity:1;visibility:visible;}
+.qtis-search{position:relative;max-width:520px;}
+.qtis-search-input{width:100%;padding:.6rem .9rem;border:1px solid #e5e7eb;border-radius:8px;font-size:.95rem;box-sizing:border-box;}
+.qtis-search-input:focus{outline:2px solid #1a56db;outline-offset:1px;}
+.qtis-search-results{margin-top:.4rem;border:1px solid #e5e7eb;border-radius:8px;background:#fff;overflow:hidden;display:none;box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.qtis-search-hit{display:block;padding:.6rem .8rem;text-decoration:none;color:#111;border-bottom:1px solid #f1f5f9;}
+.qtis-search-hit:last-child{border-bottom:none;}
+.qtis-search-hit:hover{background:#f8fafc;}
+.qtis-search-hit strong{display:block;color:#1a56db;font-size:.9rem;}
+.qtis-search-hit span{display:block;color:#6b7280;font-size:.8rem;margin-top:.1rem;}
+.qtis-search-empty{padding:.7rem .8rem;color:#6b7280;font-size:.88rem;}
+.qtis-login[data-lock="1"]{position:fixed;inset:0;z-index:9999;background:rgba(248,250,252,.98);display:flex;align-items:center;justify-content:center;padding:20px;}
+.qtis-login-card{width:100%;max-width:360px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:1.6rem 1.5rem;box-shadow:0 10px 40px rgba(15,23,42,.08);}
+.qtis-login-title{font-size:1.2rem;font-weight:700;margin-bottom:1rem;text-align:center;}
+.qtis-login-prov{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.6rem;margin-bottom:.5rem;border:1px solid #e5e7eb;border-radius:9px;background:#fff;color:#111;font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;box-sizing:border-box;}
+.qtis-login-prov:hover{background:#f8fafc;}
+.qtis-prov-google{border-color:#dadce0;}
+.qtis-prov-apple{background:#000;color:#fff;border-color:#000;}
+.qtis-prov-microsoft{border-color:#8c8c8c;}
+.qtis-login-sep{text-align:center;color:#9ca3af;font-size:.8rem;margin:.6rem 0;position:relative;}
+.qtis-login-id,.qtis-login-pw,.qtis-login-code{width:100%;padding:.6rem .75rem;margin-bottom:.55rem;border:1px solid #e5e7eb;border-radius:9px;font-size:.95rem;box-sizing:border-box;}
+.qtis-login-submit{width:100%;padding:.65rem;border:none;border-radius:9px;background:#1a56db;color:#fff;font-weight:600;font-size:.95rem;cursor:pointer;}
+.qtis-login-submit:hover{background:#1546b8;}
+.qtis-login-2fa{font-size:.8rem;color:#6b7280;margin-top:.6rem;text-align:center;}
+.qtis-login-msg{font-size:.85rem;margin-top:.6rem;text-align:center;color:#16a34a;}
+.qtis-login-msg.err{color:#b91c1c;}
+.b-root { gap:24px;display:flex;max-width:1100px;min-height:500px;background:#ffffff;padding-top:32px;padding-left:32px;padding-right:32px;flex-direction:column;padding-bottom:32px }
+.b-n-mthev7w1-d00js { gap:1px;display:grid;min-height:80px;padding-top:16px;padding-left:16px;padding-right:16px;padding-bottom:16px;grid-template-columns:1fr 2fr }
+.b-n-mthev7w1-gzvea { max-width:250px;text-align:left;border-radius:8px }
+.b-n-mthev7w1-t3j17 { gap:12px;color:#669c35;display:flex;max-width:900px;text-align:left;padding-top:10px;justify-self:end;padding-bottom:10px }
+.b-hdr { gap:2px;display:flex;padding-top:16px;padding-left:24px;padding-right:24px;flex-direction:column;padding-bottom:16px }
+.b-n-mthev7w1-d00js { gap:1px;display:grid;min-height:80px;padding-top:16px;padding-left:16px;padding-right:16px;padding-bottom:16px;grid-template-columns:1fr 2fr }
+.b-n-mthev7w1-gzvea { max-width:250px;text-align:left;border-radius:8px }
+.b-n-mthev7w1-t3j17 { gap:12px;color:#669c35;display:flex;max-width:900px;text-align:left;padding-top:10px;justify-self:end;padding-bottom:10px }
+
+@media (max-width: 480px) {
+  .b-n-mthev7w1-d00js { grid-template-columns: 1fr }
+  .b-n-mthev7w1-d00js { grid-template-columns: 1fr }
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Aller au contenu principal</a>
+  <main id="main" role="main">
+  <h1 class="sr-only">Preuves opé.</h1>
+  <div class="b-root"><div class="b-n-mthfdww1-yy5sl qtis-zone-header"><div class="b-n-mthev7w1-d00js"><img class="b-n-mthev7w1-gzvea" src="https://ihlqjrqlribexyssocbt.supabase.co/storage/v1/object/public/medias/1eba590c-2671-4d1a-8107-8131acde50b9/dekra/1787654034524-b33vrp.png" alt="image"><nav class="b-n-mthev7w1-t3j17 qtis-nav qtis-nav-h"><a class="qtis-navlink" data-part="lien" href="index.html" style="color: rgb(255, 255, 255); font-size: 12px; background: rgb(0, 127, 61); border-color: rgb(0, 127, 61); font-weight: 700; text-align: left; border-style: solid; border-width: 1px;">Log-in</a><a class="qtis-navlink" data-part="lien" href="analyseur.html" style="color: rgb(255, 255, 255); font-size: 12px; background: rgb(0, 127, 61); border-color: rgb(0, 127, 61); font-weight: 700; text-align: left; border-style: solid; border-width: 1px;">Analyseur</a><a class="qtis-navlink" data-part="lien" href="mes-operations.html" style="color: rgb(255, 255, 255); font-size: 12px; background: rgb(0, 127, 61); border-color: rgb(0, 127, 61); font-weight: 700; text-align: left; border-style: solid; border-width: 1px;">Mes opérations</a><a class="qtis-navlink" data-part="lien" href="chat.html" style="color: rgb(255, 255, 255); font-size: 12px; background: rgb(0, 127, 61); border-color: rgb(0, 127, 61); font-weight: 700; text-align: left; border-style: solid; border-width: 1px;">Chat</a><a class="qtis-navlink active" data-part="lien" href="preuves-ope.html" aria-current="page" style="color: rgb(255, 255, 255); font-size: 12px; background: rgb(0, 127, 61); border-color: rgb(0, 127, 61); font-weight: 700; text-align: left; border-style: solid; border-width: 1px;">Preuves opé.</a></nav></div></div><div class="b-n-mthfe1e4-hz2pj qtis-embed"><iframe src="https://houseofcodesign.com/demoHOC/QTIS_UX/pages/dekra/preuves.html" loading="lazy" allowfullscreen="true" title="Intégration" style="width: 100%; height: 420px; border: 1px solid rgb(229, 231, 235); border-radius: 8px;"></iframe></div></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+(function(){
+  var BASE_URL="https://ihlqjrqlribexyssocbt.supabase.co/functions/v1/qtis-api";var conversationId=null;
+  var QTIS_ENV="";
+  function _qapi(p){var u=BASE_URL+(p||'');if(!QTIS_ENV)return u;return u+(u.indexOf('?')<0?'?':'&')+'env='+encodeURIComponent(QTIS_ENV);}
+  var _ldr='<span class="qtis-ldr" aria-label="chargement" role="status" style="display:inline-block;width:1em;height:1em;border:2px solid rgba(120,120,120,.3);border-top-color:currentColor;border-radius:50%;animation:qtisspin .7s linear infinite;vertical-align:-.12em;opacity:.7;"></span>';
+  (function(){var s=document.createElement('style');s.textContent='@keyframes qtisspin{to{transform:rotate(360deg)}}';document.head.appendChild(s);})();
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
+  function bubble(t,who){var o=document.getElementById('qtis-output');if(!o)return null;var C=window.CHATCFG||{};var u=(who==='user');var bg=u?(C.ubg||'#1a56db'):(C.aibg||'#eef1f8');var col=u?(C.utext||'#fff'):(C.aitext||'#111');var bd=(parseInt(C.bw,10)>0&&C.bc)?('border:'+parseInt(C.bw,10)+'px solid '+C.bc+';'):'';var ff=C.font?('font-family:'+C.font+';'):'';var al=u?'margin-left:auto;border-bottom-right-radius:4px;':'margin-right:auto;border-bottom-left-radius:4px;';var d=document.createElement('div');d.setAttribute('style','width:fit-content;max-width:80%;padding:8px 12px;border-radius:14px;margin-bottom:10px;white-space:pre-wrap;word-wrap:break-word;line-height:1.55;background:'+bg+';color:'+col+';'+bd+ff+al);d.textContent=(t==null?'':String(t));o.appendChild(d);o.scrollTop=o.scrollHeight;return d;}
+  function _sxtract(o){if(o==null)return '';if(typeof o==='string')return o;var k=['content','delta','text','token','message','answer','response','reply'];for(var i=0;i<k.length;i++){if(typeof o[k[i]]==='string')return o[k[i]];}if(o.choices&&o.choices[0]){var c=o.choices[0];if(c.delta&&typeof c.delta.content==='string')return c.delta.content;if(typeof c.text==='string')return c.text;}if(o.data)return _sxtract(o.data);return '';}
+  function ans(d){if(d==null)return'';if(typeof d==='string')return d;var k=['answer','response','message','content','text','reply'];for(var i=0;i<k.length;i++){var v=d[k[i]];if(typeof v==='string'&&v.trim())return v;if(v&&typeof v==='object'){var n=ans(v);if(n)return n;}}if(d.data)return ans(d.data);return'';}
+  function kpiVal(t){t=String(t==null?'':t).trim();var m=t.match(/-?\d[\d .,]*%?/);return m?m[0].replace(/\s+/g,'').trim():t.split('\n')[0].slice(0,18);}
+  function toRows(t){t=String(t==null?'':t).replace(/\r/g,'').trim();var lines=t.split(/\n+/).map(function(s){return s.trim();}).filter(Boolean);var pipe=lines.filter(function(l){return l.indexOf('|')>=0;});var rows=[];if(pipe.length>=2){pipe.forEach(function(l){var bare=l.replace(/\|/g,'').trim();if(/^:?-{2,}/.test(bare)||/^[\s:|-]+$/.test(l))return;var c=l.replace(/^\||\|$/g,'').split('|').map(function(x){return x.trim();});rows.push(c);});}else{lines.forEach(function(l){var c;if(l.indexOf('\t')>=0)c=l.split('\t');else if(l.indexOf(';')>=0)c=l.split(';');else if(l.split(',').length>=2)c=l.split(',');else c=[l.replace(/^\s*\d{1,2}[\.\)]\s*/,'')];rows.push(c.map(function(x){return x.trim();}));});}return rows.slice(0,50);}
+  function tableHtml(rows){if(!rows.length)return'';var head=rows[0],body=rows.slice(1);var h='<tr>'+head.map(function(c){return '<th scope="col" style="text-align:left;border-bottom:1px solid #e5e7eb;padding:6px;color:#6b7280;">'+esc(c)+'</th>';}).join('')+'</tr>';var b=body.map(function(r){return '<tr>'+r.map(function(c){return '<td style="border-bottom:1px solid #e5e7eb;padding:6px;">'+esc(c)+'</td>';}).join('')+'</tr>';}).join('');return '<caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Tableau de donnees</caption>'+h+b;}
+  function toSteps(t){t=String(t==null?'':t).replace(/\r/g,'').trim();var m=t.match(/\d{1,2}[\.\)]\s+/);if(m){t=t.slice(t.indexOf(m[0]));}var q=t.replace(/\s*\d{1,2}[\.\)]\s+/g,'|~sep~|').split('|~sep~|').map(function(s){return s.trim();}).filter(Boolean);if(q.length<2){q=t.split(/\n+/).map(function(s){return s.replace(/^\s*\d{1,2}[\.\)]\s*/,'').trim();}).filter(Boolean);}return q.slice(0,25);}
+  fetch(_qapi('/health.php')).then(function(r){return r.text();}).then(function(t){var j=null;try{j=JSON.parse(t);}catch(e){}if(!(j&&j.ok))bubble('Backend QTIS indisponible (deploie la page a cote du dossier api/).');}).catch(function(){bubble('Backend QTIS injoignable (dossier api/ ?).');});
+  function _qres(t){var C=window.CHATRES||null;if(!C||!C.resEnr||!t)return;try{if(typeof qtisResEnregistrer==='function')qtisResEnregistrer(null,{module:'chat',blocId:C.resBloc||'',titre:C.resTitre||'Échange',texte:t,exigeFiche:!!C.resExigeFiche});}catch(e){}}
+  function _qbody(m,pid,st){var o={message:m,is_stream:st,conversation_id:conversationId};if(pid)o.suggested_prompt_id=pid;return o;}
+  function sendChat(m,pid){if(!m&&!pid)return;var el=bubble('',null);var acc='';function nostream(){fetch(_qapi('/chat.php'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_qbody(m,pid,false))}).then(function(r){return r.json();}).then(function(d){conversationId=d.conversation_id||conversationId;var full=ans(d)||JSON.stringify(d);_qres(full);var i=0,step=Math.max(1,Math.round(full.length/120));(function tk(){if(!el)return;i=Math.min(full.length,i+step);el.textContent=full.slice(0,i);var o=document.getElementById('qtis-output');if(o)o.scrollTop=o.scrollHeight;if(i<full.length)setTimeout(tk,18);})();}).catch(function(e){if(el)el.textContent='Erreur : '+e;});}fetch(_qapi('/chat.php'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_qbody(m,pid,true))}).then(function(r){if(!r.ok||!r.body||!r.body.getReader){throw new Error('x');}var reader=r.body.getReader();var dec=new TextDecoder();var buf='';function pump(){return reader.read().then(function(res){if(res.done){if(!acc)nostream();else _qres(acc);return;}buf+=dec.decode(res.value,{stream:true});var parts=buf.split(/\n\n/);buf=parts.pop();for(var pi=0;pi<parts.length;pi++){var ls=parts[pi].split(/\n/);var ds='';for(var li=0;li<ls.length;li++){var mm=ls[li].match(/^data:\s?(.*)$/);if(mm)ds+=mm[1];}if(!ds||ds==='[DONE]')continue;var piece='';try{var j=JSON.parse(ds);if(j.conversation_id)conversationId=j.conversation_id;piece=_sxtract(j);}catch(e){piece=ds;}if(piece){if(acc&&piece.indexOf(acc)===0)acc=piece;else acc+=piece;if(el)el.textContent=acc;var o=document.getElementById('qtis-output');if(o)o.scrollTop=o.scrollHeight;}}return pump();});}return pump();}).catch(function(){nostream();});}
+  function _qsend(){var inp=document.getElementById('qtis-input');var m=inp?(inp.value||'').trim():'';if(!m)return;if(inp)inp.value='';bubble(m,'user');sendChat(m);}
+  Array.prototype.forEach.call(document.querySelectorAll('[id="qtis-btn-send"]'),function(sb){sb.addEventListener('click',_qsend);});
+  Array.prototype.forEach.call(document.querySelectorAll('[id="qtis-input"]'),function(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_qsend();}});});
+  Array.prototype.forEach.call(document.querySelectorAll('.qtis-qp'),function(b){b.addEventListener('click',function(){
+    var pid=b.getAttribute('data-qp');if(!pid)return;
+    bubble(b.textContent||'','user');
+    var z=b.parentNode;if(z&&z.getAttribute('data-masquer')==='1')z.style.display='none';
+    sendChat('',pid);
+  });});
+  function qtisEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];});}
+function qtisPalette(base,n){var arr=[base,'#f59e0b','#10b981','#ef4444','#8b5cf6','#0ea5e9','#ec4899','#84cc16'];var out=[];for(var i=0;i<n;i++)out.push(arr[i%arr.length]);return out;}
+function qtisBars(series,color,labels){var mx=Math.max.apply(null,series.map(function(s){return s.value;}).concat([1]));var bars=series.map(function(s){var h=Math.max(3,Math.round(s.value/mx*100));return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:100%;"><div title="'+s.value+'" style="width:100%;background:'+color+';border-radius:3px 3px 0 0;opacity:.9;height:'+h+'%;"></div>'+((labels&&s.label)?'<div style="font-size:10px;color:#6b7280;text-align:center;line-height:1.1;">'+qtisEsc(s.label)+'</div>':'')+'</div>';}).join('');return '<div style="display:flex;align-items:flex-end;gap:6px;height:120px;">'+bars+'</div>';}
+function qtisLine(series,color,labels){var mx=Math.max.apply(null,series.map(function(s){return s.value;}).concat([1]));var n=series.length,W=300,H=100;var pts=series.map(function(s,i){var x=n>1?(i/(n-1))*W:0;var y=H-(s.value/mx)*H;return x.toFixed(1)+','+y.toFixed(1);}).join(' ');var dots=series.map(function(s,i){var x=n>1?(i/(n-1))*W:0;var y=H-(s.value/mx)*H;return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.5" fill="'+color+'"><title>'+qtisEsc(s.label||'')+' '+s.value+'</title></circle>';}).join('');var lab=labels?('<div style="display:flex;justify-content:space-between;font-size:10px;color:#6b7280;margin-top:2px;">'+series.map(function(s){return '<span>'+qtisEsc(s.label||'')+'</span>';}).join('')+'</div>'):'';return '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="width:100%;height:120px;overflow:visible;"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2"/>'+dots+'</svg>'+lab;}
+function qtisPie(series,color,labels){var total=series.reduce(function(a,s){return a+Math.abs(s.value);},0)||1;var cols=qtisPalette(color,series.length);var cx=60,cy=60,r=55,a0=-Math.PI/2,paths='';series.forEach(function(s,i){var frac=Math.abs(s.value)/total;var a1=a0+frac*2*Math.PI;var x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);var lg=frac>0.5?1:0;paths+='<path d="M'+cx+','+cy+' L'+x0.toFixed(1)+','+y0.toFixed(1)+' A'+r+','+r+' 0 '+lg+' 1 '+x1.toFixed(1)+','+y1.toFixed(1)+' Z" fill="'+cols[i]+'"><title>'+qtisEsc(s.label||'')+': '+s.value+'</title></path>';a0=a1;});var legend=labels?('<div style="display:flex;flex-direction:column;gap:3px;font-size:11px;">'+series.map(function(s,i){return '<div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:'+cols[i]+';display:inline-block;flex:0 0 auto;"></span>'+qtisEsc(s.label||'')+' ('+s.value+')</div>';}).join('')+'</div>'):'';return '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;"><svg viewBox="0 0 120 120" style="width:120px;height:120px;flex:0 0 auto;">'+paths+'</svg>'+legend+'</div>';}
+function qtisChartHtml(series,type,color,labels){if(!series||!series.length)return '';return type==='pie'?qtisPie(series,color,labels):(type==='line'?qtisLine(series,color,labels):qtisBars(series,color,labels));}
+function qtisToSeries(t){t=String(t==null?'':t).replace(/\r/g,'').trim();var items=t.split(/[\n,;]+/).map(function(s){return s.trim();}).filter(Boolean);var out=[];items.forEach(function(it){var label='',vs=it;var m=it.match(/^(.*?)[:=]\s*(-?[0-9][0-9 .,]*)$/);if(m){label=m[1].trim();vs=m[2];}var num=parseFloat(String(vs).replace(/\s/g,'').replace(',','.').replace(/[^0-9.\-]/g,''));if(!isNaN(num))out.push({label:label,value:num});});return out.slice(0,24);}
+function qtisRenderChart(el,series,type,color,labels){if(series&&series.length){el.setAttribute("role","img");el.setAttribute("aria-label","Graphique : "+series.map(function(s){return (s.label?s.label+" ":"")+s.value;}).join(", "));el.innerHTML=qtisChartHtml(series,type,color,labels);}}
+  var QC_ON=true;var QC_TTL=3600000;var QC_LOADERS=[];
+  function qcKey(id){return 'qcache:'+location.pathname+':'+id;}
+function qcGet(id){if(!QC_ON)return null;try{var raw=localStorage.getItem(qcKey(id));if(raw==null)return null;var o=JSON.parse(raw);if(!o||typeof o.v!=="string")return null;if(QC_TTL>0&&(Date.now()-(o.t||0))>QC_TTL)return null;return o.v;}catch(e){return null;}}
+function qcSet(id,v){if(!QC_ON)return;try{localStorage.setItem(qcKey(id),JSON.stringify({t:Date.now(),v:v}));}catch(e){}}
+function QC_REFRESH(){QC_LOADERS.forEach(function(f){try{f(true);}catch(e){}});}
+function qtisAppliquer(el,text,mode,ct,orig){if(!text){el.innerHTML=orig;return;}if(mode==='kpi'){el.textContent=kpiVal(text)||orig;}else if(mode==='text'){var v=String(text).trim();el.textContent=v||orig;}else if(mode==='liste'){var it2=toSteps(text);if(!it2.length){el.innerHTML=orig;return;}var ico=el.getAttribute('data-ico')||'\u2705';el.innerHTML='';it2.forEach(function(t2){var li=document.createElement('div');li.style.cssText='display:flex;gap:10px;align-items:flex-start;padding:6px 0;';var sp0=document.createElement('span');sp0.textContent=ico;sp0.style.cssText='flex:0 0 auto;line-height:1.5;';var sp1=document.createElement('span');sp1.textContent=t2;li.appendChild(sp0);li.appendChild(sp1);el.appendChild(li);});}else if(mode==='checklist'){var steps=toSteps(text);if(!steps.length){el.innerHTML=orig;return;}el.innerHTML='';steps.forEach(function(sX){var lb=document.createElement('label');lb.style.cssText='display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:14px;';var cb=document.createElement('input');cb.type='checkbox';cb.style.marginTop='3px';var sp=document.createElement('span');sp.textContent=sX;lb.appendChild(cb);lb.appendChild(sp);el.appendChild(lb);});}else if(mode==='table'){var rows=toRows(text);el.innerHTML=rows.length?tableHtml(rows):orig;}else if(mode==='graph'){var series=qtisToSeries(text);if(series.length)qtisRenderChart(el,series,(ct&&ct.type)||'bar',(ct&&ct.color)||'#1a56db',!(ct&&ct.labels===false));else el.innerHTML=orig;}else if(mode==='alert'){var v2=String(text).trim().split('\n')[0];el.textContent=v2||orig;}}
+function qcInit(id,url,mode,ct,res){var el=document.getElementById(id);if(!el)return;var orig=el.innerHTML;function apply(text){qtisAppliquer(el,text,mode,ct,orig);}function run(force){if(!force){var c=qcGet(id);if(c!=null){apply(c);return;}}el.innerHTML=_ldr;fetch(url).then(function(r){return r.json();}).then(function(d){var text=(d&&d.text)||ans(d)||'';if(text)qcSet(id,text);apply(text);if(text){try{if(typeof qtisPublier==='function')qtisPublier('qtis-out-'+id,{texte:text});}catch(e){}try{if(res&&typeof qtisResEnregistrer==='function')qtisResEnregistrer(null,{module:res.module||'',blocId:res.bloc||id,titre:res.titre||'',texte:text});}catch(e){}}}).catch(function(){el.innerHTML=orig;});}QC_LOADERS.push(run);run(false);}
+  var QTIS_FILE_CLE = "qtisux:resultats:file";
+var QTIS_FICHE_CLE = "qtisux:fiche-courante";
+function qtisCleSession(cfg){
+    var p = (cfg && cfg.projet) ? String(cfg.projet) : 'sansprojet';
+    return 'qtisux.app.' + p.replace(/[^A-Za-z0-9_-]/g,'') + '.auth';
+  }
+function qtisCookieNom(cfg){
+    var p = (cfg && cfg.projet) ? String(cfg.projet).replace(/[^A-Za-z0-9_-]/g,'') : '';
+    return p ? ('qtis_jwt_' + p) : 'qtis_jwt';
+  }
+function qtisSb(cfg){
+    if(window.__QTIS_SB_CLI) return window.__QTIS_SB_CLI;
+    if(!window.supabase||!cfg||!cfg.sbUrl||!cfg.sbKey) return null;
+    window.__QTIS_SB_CLI = window.supabase.createClient(cfg.sbUrl,cfg.sbKey,{
+      auth:{ persistSession:true, autoRefreshToken:true,
+             storageKey: qtisCleSession(cfg) }
+    });
+    return window.__QTIS_SB_CLI;
+  }
+function qtisSessionEmet(u){
+    window.__QTIS_USER = u || null;
+    try { window.dispatchEvent(new CustomEvent('qtis:session',{detail:u||null})); } catch(e){}
+  }
+function qtisSessionSuivre(fn){
+    if(window.__QTIS_USER) fn(window.__QTIS_USER);
+    window.addEventListener('qtis:session',function(e){ fn(e.detail); });
+  }
+function qtisAuthMsg(m){
+    m=String(m||'');
+    if(/Invalid login credentials/i.test(m)) return 'Adresse ou mot de passe incorrect.';
+    if(/Email not confirmed/i.test(m)) return 'Adresse non confirmée : ouvrez le lien reçu par e-mail.';
+    if(/User already registered/i.test(m)) return 'Un compte existe déjà avec cette adresse.';
+    if(/Password should be at least/i.test(m)) return 'Mot de passe trop court (6 caractères minimum).';
+    return m;
+  }
+function qtisFicheMsg(e){
+    var m=String((e&&e.message)||e||'');
+    if(/row-level security/i.test(m))
+      return 'Enregistrement refusé : votre compte n’est pas membre de ce projet. Demandez une invitation depuis la page Membres.';
+    if(/JWT|not authenticated|Auth session missing/i.test(m))
+      return 'Session expirée : reconnectez-vous.';
+    return m;
+  }
+function qtisCookieJeton(sess, cfg){
+    try {
+      var sec=(location.protocol==='https:')?'; Secure':'';
+      var nom=qtisCookieNom(cfg);
+      var t=sess&&sess.access_token;
+      if(t){ document.cookie=nom+'='+t+'; path=/; max-age=3600; SameSite=Lax'+sec; return; }
+      /* Deconnexion : on efface le cookie du projet ET l'ancien `qtis_jwt`.
+         La garde serveur se replie sur l'ancien nom pour les pages publiees
+         avant ce changement — n'effacer que le nouveau laisserait donc entrer
+         quelqu'un qui vient de se deconnecter. Une deconnexion qui ne
+         deconnecte pas est pire qu'un bouton absent. */
+      document.cookie=nom+'=; path=/; max-age=0; SameSite=Lax'+sec;
+      if(nom!=='qtis_jwt') document.cookie='qtis_jwt=; path=/; max-age=0; SameSite=Lax'+sec;
+    } catch(e){}
+  }
+function qtisCibleConnexion(cfg,href){
+    var cible=(cfg&&cfg.connexion)||'';
+    if(!cible) return '';                       // '' = recharger sur place
+    try {
+      var u=new URL(cible,href);
+      var ici=new URL(href);
+      if(u.pathname===ici.pathname) return '';  // déjà sur la page de connexion
+      return u.href;
+    } catch(e){ return ''; }
+  }
+function qtisRetourConnexion(cfg){
+    var d=qtisCibleConnexion(cfg,location.href);
+    if(d) location.href=d; else location.reload();
+  }
+function qtisPastilleCompte(cli,u,cfg){
+    if(!cli||!u) return;
+    if(document.getElementById('qtis-sortie')) return;
+    var d=document.createElement('div');
+    d.id='qtis-sortie';
+    /* z-index SOUS le voile du verrou (9998) : sinon la pastille s'afficherait
+       par-dessus une page encore fermée. */
+    d.style.cssText='position:fixed;top:10px;right:10px;z-index:9997;background:#fff;'
+      + 'border:1px solid #e5e7eb;border-radius:999px;padding:6px 12px;'
+      + 'font:12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'
+      + 'color:#374151;box-shadow:0 1px 4px rgba(0,0,0,.10);display:flex;gap:8px;align-items:center;';
+    var t=document.createElement('span');
+    t.textContent=(u&&u.email)?u.email:'Connecté';
+    var b=document.createElement('a');
+    b.href='#'; b.textContent='Se déconnecter';
+    b.style.cssText='color:#1a56db;text-decoration:none;cursor:pointer;';
+    b.addEventListener('click',function(ev){
+      if(ev&&ev.preventDefault) ev.preventDefault();
+      /* Le cookie D'ABORD, et quoi qu'il arrive : c'est lui que lit la garde
+         serveur. Le laisser ferait d'une déconnexion un geste décoratif. */
+      qtisCookieJeton(null, cfg);
+      cli.auth.signOut().then(function(){ window.__QTIS_ROLE=''; qtisRetourConnexion(cfg); })
+                        .catch(function(){ qtisRetourConnexion(cfg); });
+    });
+    d.appendChild(t); d.appendChild(b);
+    document.body.appendChild(d);
+  }
+function qtisPastilleRetirer(){
+    var d=document.getElementById('qtis-sortie');
+    if(d&&d.parentNode) d.parentNode.removeChild(d);
+  }
+function qtisInitCompte(cfg){
+    var cli=qtisSb(cfg||{}); if(!cli) return;
+    function vu(sess){
+      qtisCookieJeton(sess, cfg);
+      var u=(sess&&sess.user)||null;
+      if(u) qtisPastilleCompte(cli,u,cfg); else qtisPastilleRetirer();
+    }
+    cli.auth.getSession().then(function(r){ vu(r&&r.data&&r.data.session); }).catch(function(){});
+    cli.auth.onAuthStateChange(function(_e,sess){ vu(sess); });
+  }
+function qtisInitBlocCompte(id,cfg){
+    cfg=cfg||{};
+    var root=document.getElementById('qtis-compte-'+id); if(!root) return;
+    var eNom=root.querySelector('[data-part="identite"]');
+    var eLien=root.querySelector('[data-part="lien"]');
+    var eOut=root.querySelector('[data-part="sortie"]');
+    var libCompte=root.getAttribute('data-lib-compte')||'Mon compte';
+    var libEntrer=root.getAttribute('data-lib-entrer')||'Se connecter';
+    /* '' quand on EST déjà sur la page de connexion : le lien n'y mène nulle
+       part, et le bloc Connexion y fait déjà le travail. */
+    var cible=qtisCibleConnexion(cfg,location.href);
+    /* On mémorise le `display` d'origine au lieu de remettre '' : les parties
+       peuvent porter un display réglé depuis la barre, et le rétablir à vide
+       repasserait un `inline-flex` en `inline`. Le bloc Connexion s'est fait
+       prendre exactement là. */
+    function aff(el,v){
+      if(!el) return;
+      if(el.__dOrig===undefined) el.__dOrig=el.style.display;
+      el.style.display = v ? el.__dOrig : 'none';
+    }
+    if(root.__dOrig===undefined) root.__dOrig=root.style.display;
+    function etat(u){
+      if(eLien){
+        eLien.textContent = u ? libCompte : libEntrer;
+        if(cible) eLien.setAttribute('href',cible);
+      }
+      aff(eNom,!!u);
+      aff(eLien,!!cible);
+      aff(eOut,!!u);
+      if(u&&eNom) eNom.textContent=(u.email||u.phone||'Connecté');
+      /* Déconnecté ET sans page de connexion à proposer : le bloc n'a plus
+         rien à dire. Le laisser afficherait un cadre vide. */
+      root.style.display = (!u&&!cible) ? 'none' : root.__dOrig;
+    }
+    etat(null);
+    var cli=qtisSb(cfg); if(!cli) return;
+    if(eOut){
+      eOut.addEventListener('click',function(ev){
+        if(ev&&ev.preventDefault) ev.preventDefault();
+        /* Le cookie D'ABORD, et quoi qu'il arrive : c'est lui que lit la garde
+           serveur. Une déconnexion qui ne l'efface pas est décorative. */
+        qtisCookieJeton(null,cfg);
+        cli.auth.signOut().then(function(){ window.__QTIS_ROLE=''; qtisRetourConnexion(cfg); })
+                          .catch(function(){ qtisRetourConnexion(cfg); });
+      });
+    }
+    function vu(sess){ qtisCookieJeton(sess,cfg); etat((sess&&sess.user)||null); }
+    cli.auth.getSession().then(function(r){ vu(r&&r.data&&r.data.session); }).catch(function(){});
+    cli.auth.onAuthStateChange(function(_e,sess){ vu(sess); });
+  }
+function qtisInitConnexion(id,cfg){
+    cfg=cfg||{};
+    var root=document.getElementById('qtis-login-'+id); if(!root) return;
+    var cli=qtisSb(cfg);
+    var zMsg=root.querySelector('[data-part="message"]');
+    var zCarte=root.querySelector('.qtis-login-card');
+    function dire(t,err){ if(!zMsg) return; zMsg.textContent=t||''; zMsg.className='qtis-login-msg'+(err?' err':''); }
+
+    if(!cli){
+      dire('Connexion indisponible : Supabase n’est pas configuré pour cette page.',true);
+      return;
+    }
+
+    /* Verrou de page. Il est posé AVANT toute requête : sinon le contenu
+       protégé s’affiche une fraction de seconde, et une capture d’écran suffit. */
+    var voile=null;
+    if(cfg.lock){
+      voile=document.createElement('div');
+      voile.setAttribute('data-qtis-voile','1');
+      voile.style.cssText='position:fixed;inset:0;z-index:9998;background:#f8fafc;';
+      document.body.appendChild(voile);
+      root.style.position='relative'; root.style.zIndex='9999';
+    }
+    /* ── L'écran de connexion qu'on ne devrait pas voir ────────────────────
+       Une page d'accueil qui redirige les personnes connectées affichait quand
+       même son formulaire pendant tout le temps de la décision — mesuré à
+       821 ms sur le projet Dekra, le temps de trois allers-retours : lecture
+       de la session, rattachement, lecture du rôle. On revenait donc sur un
+       site où l'on est déjà connecté, et on voyait l'écran de connexion.
+
+       La clé de session dans le stockage local répond tout de suite, elle. Sa
+       présence ne PROUVE rien — le jeton peut être périmé, et c'est Supabase
+       qui tranche une seconde plus tard — mais elle suffit à décider QUOI
+       AFFICHER pendant l'attente : le formulaire, ou rien.
+
+       Aucune sécurité ne repose là-dessus. Quelqu'un qui fabriquerait cette
+       clé à la main verrait un voile gris, puis le formulaire dès que Supabase
+       aurait répondu « pas de session ». Les droits, eux, restent tranchés par
+       les policies.
+
+       Voile SÉPARÉ de celui du verrou : celui-là ne se lève jamais tant qu'on
+       n'est pas entré, et les confondre exposerait une page protégée. */
+    var voileAttente=null;
+    if(!cfg.lock && cfg.redirect){
+      var _dejaLa=false;
+      try { var _v=window.localStorage.getItem(qtisCleSession(cfg)); _dejaLa=!!_v && _v!=='null'; } catch(e){}
+      if(_dejaLa){
+        voileAttente=document.createElement('div');
+        voileAttente.setAttribute('data-qtis-attente','1');
+        voileAttente.style.cssText='position:fixed;inset:0;z-index:9997;background:#f8fafc;'
+          + 'display:flex;align-items:center;justify-content:center;'
+          + 'font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#6b7280;';
+        voileAttente.textContent='Un instant…';
+        document.body.appendChild(voileAttente);
+      }
+    }
+    function leverAttente(){
+      if(voileAttente&&voileAttente.parentNode){ voileAttente.parentNode.removeChild(voileAttente); voileAttente=null; }
+    }
+
+    /* Lever le voile est un geste À PART. Il était fondu dans `ouvrir()`, qui
+       ne sert QU'au cas « session valide ». Résultat : dans tous les autres
+       cas — pas de session, erreur réseau, Supabase muet — le voile restait
+       posé pour toujours. La page s'affichait une seconde, puis tout devenait
+       gris. C'est le défaut vécu. */
+    function lever(){ leverAttente(); if(voile&&voile.parentNode){ voile.parentNode.removeChild(voile); voile=null; } }
+
+    /* Masquer/rétablir en gardant la valeur d'origine. Les liens du bloc portent
+       `display:block` EN LIGNE ; remettre `display:''` les repasserait en
+       `inline` et déplacerait la mise en page. On mémorise donc au lieu de
+       deviner. */
+    function cacher(el){ if(!el) return; if(el.__dOrig===undefined) el.__dOrig=el.style.display; el.style.display='none'; }
+    function montrer(el){ if(!el) return; el.style.display=(el.__dOrig===undefined?'':el.__dOrig); }
+
+    /* SESSION OUVERTE. L'ancienne version masquait la carte ENTIÈRE — donc le
+       bloc compte disparaissait de la page une fois connecté. Deux conséquences
+       vécues : un trou à la place du bloc, indiscernable d'une panne (« le bloc
+       s'affiche une microseconde »), et la disparition du seul moyen de se
+       déconnecter, puisque le lien vit DANS la carte.
+       Le comportement dépend maintenant de la nature du bloc :
+         · avec verrou, le bloc EST la porte d'entrée : il s'efface une fois
+           ouverte, car la page derrière est la destination ;
+         · sans verrou, c'est un bloc COMPTE : il doit montrer le compte. */
+    function seDeconnecter(ev){
+      if(ev&&ev.preventDefault) ev.preventDefault();
+      qtisCookieJeton(null, cfg);
+      cli.auth.signOut().then(function(){ window.__QTIS_ROLE=''; qtisRetourConnexion(cfg); })
+                        .catch(function(){ qtisRetourConnexion(cfg); });
+    }
+
+    function ouvrir(u){
+      lever();
+      if(!zCarte) return;
+      if(cfg.lock){ zCarte.style.display='none'; qtisPastilleCompte(cli,u,cfg); return; }
+      zCarte.style.display='';
+      var lien=zCarte.querySelector('[data-qtis-logout]');
+      Array.prototype.forEach.call(zCarte.children,function(el){
+        if(el===lien||el===zMsg) return;
+        if(el.getAttribute&&el.getAttribute('data-qtis-connecte')==='1') return;
+        cacher(el);
+      });
+      var ligne=zCarte.querySelector('[data-qtis-connecte]');
+      if(!ligne){
+        ligne=document.createElement('div');
+        ligne.setAttribute('data-qtis-connecte','1');
+        ligne.style.cssText='text-align:center;font-size:.9rem;color:#374151;margin-bottom:.4rem;';
+        zCarte.insertBefore(ligne,zCarte.firstChild);
+      }
+      ligne.textContent=(u&&u.email)?('Connecté : '+u.email):'Connecté';
+      ligne.style.display='';
+      montrer(lien);
+    }
+    /* Page de connexion dédiée : une fois la session ouverte, on va à la page
+       de travail. Le garde-fou compte autant que la redirection — sans lui,
+       une page qui se redirige vers elle-même boucle indéfiniment. */
+    /* Renvoie `true` quand on PART. L'appelant s'en sert pour ne rien
+       réafficher : `ouvrir(u)` lève le voile et montre « Connecté : … — Se
+       déconnecter » juste avant que la page ne change. On voyait donc un
+       second écran clignoter, à la place du premier. Partir est une décision :
+       tant qu'elle n'est pas prise, on n'affiche rien ; une fois prise, on
+       n'affiche plus rien non plus. */
+    function rediriger(){
+      if(!cfg.redirect) return false;
+      try {
+        var cible=new URL(cfg.redirect,location.href);
+        if(cible.pathname===location.pathname) return false;
+        location.href=cible.href;
+        return true;
+      } catch(e){}
+      return false;
+    }
+    /* Pas de session : on montre le formulaire ET on lève le voile. Le voile
+       protège le CONTENU de la page ; masquer aussi le formulaire de connexion
+       ne protège rien, cela empêche seulement de se connecter. */
+    /* Retour à l'état « non connecté ».
+       ON NE LÈVE PAS LE VOILE ICI. Je l'avais fait ce matin pour corriger la
+       « page grise qui ne part jamais » — et j'ouvrais du même coup la page
+       protégée à quiconque n'est PAS autorisé : visiteur sans session, compte
+       sans rôle sur le projet, ou simple panne réseau. Le verrou doit échouer
+       FERMÉ. Le voile ne se lève qu'en un seul endroit, `ouvrir()`, c'est-à-dire
+       quand le serveur a confirmé le droit d'entrer.
+       Ce qu'on garantit ici, c'est que le formulaire reste ATTEIGNABLE : la
+       carte est remontée au-dessus du voile (z-index posé à la création), donc
+       on peut toujours se connecter ou lire le message d'erreur. */
+    function fermer(){
+      /* Pas de session : on montre le formulaire, donc le voile d'attente
+         doit tomber. Il n'est PAS levé par `lever()` seul, appelé uniquement
+         quand la session s'ouvre — sans cette ligne, un visiteur anonyme
+         resterait devant un écran gris. Le voile du VERROU, lui, reste : il
+         protège une page où l'on n'est pas entré. */
+      leverAttente();
+      qtisPastilleRetirer();
+      if(!zCarte) return;
+      zCarte.style.display='';
+      var ligne=zCarte.querySelector('[data-qtis-connecte]');
+      if(ligne) ligne.style.display='none';
+      Array.prototype.forEach.call(zCarte.children,function(el){
+        if(el.getAttribute&&el.getAttribute('data-qtis-connecte')==='1') return;
+        montrer(el);
+      });
+    }
+
+    /* Le cookie et la pastille vivent au niveau du socle (voir
+       `qtisCookieJeton` / `qtisPastilleCompte`) : ils servent aussi aux pages
+       qui ne portent pas de bloc Connexion. */
+    var cookieJeton = qtisCookieJeton;
+
+    function apresSession(sess){
+      cookieJeton(sess);
+      var u=(sess&&sess.user)||null;
+      if(!u){ qtisSessionEmet(null); fermer(); return; }
+      /* Rattachement : l’invitation porte une adresse, la session un
+         identifiant. C’est ici que les deux se rejoignent. Sans cet appel,
+         un invité reste sans rôle et ne voit rien. */
+      /* Deux chemins pour obtenir un role, dans cet ordre :
+         1. le RATTACHEMENT — une invitation portait cette adresse ;
+         2. l'ADHESION LIBRE — le projet l'a ouverte, on entre sans invitation.
+         Le second ne fait rien si le projet ne l'a pas activee : c'est la
+         base qui tranche, jamais le client. Les deux sont silencieux en cas
+         d'echec — un visiteur sans droit voit le message de la page, pas une
+         erreur technique. */
+      cli.rpc('app_rattacher_membre').then(function(){ return null; }).catch(function(){ return null; })
+        .then(function(){
+          if(!cfg.projet) return null;
+          return cli.rpc('app_rejoindre_projet',{p_projet:cfg.projet}).then(function(){ return null; }).catch(function(){ return null; });
+        })
+        .then(function(){
+          /* Sans projet, aucun rôle à vérifier : la décision est déjà prise.
+             Cette branche ne redirigeait pas du tout — une page sans projet
+             gardait son visiteur sur l'accueil malgré le réglage. */
+          if(!cfg.projet){ qtisSessionEmet(u); if(rediriger()) return; ouvrir(u); return; }
+          return cli.rpc('app_mon_role',{p_projet:cfg.projet}).then(function(r){
+            var role=(r&&r.data)||'';
+            window.__QTIS_ROLE=role;
+            /* Membre ou non : c’est le serveur qui l’a dit. On n’ouvre pas
+               une page rattachée à un projet à quelqu’un qui n’a aucun rôle.
+
+               La condition portait sur `cfg.lock` — seules les pages VERROUILLÉES
+               refusaient. Sur une page ouverte, un non-membre entrait, remplissait
+               un formulaire, signait, et n’apprenait qu’à l’enregistrement qu’il
+               n’avait pas le droit : sa saisie était perdue. Refuser à la porte
+               coûte un message ; refuser à la sortie coûte le travail de
+               quelqu’un.
+
+               Si le projet a ouvert l’adhésion libre, `app_rejoindre_projet` a
+               déjà accordé le rôle juste au-dessus : ce refus ne concerne donc
+               que les projets fermés. */
+            if(cfg.projet&&!role){
+              dire('Votre compte n’est pas membre de ce projet. Demandez une invitation à son responsable.',true);
+              qtisSessionEmet(null); fermer(); return;
+            }
+            /* L'ordre compte : on part AVANT de réafficher. `ouvrir(u)` levait
+               le voile et montrait la ligne « Connecté : … » une fraction de
+               seconde, juste avant la navigation. */
+            qtisSessionEmet(u); if(rediriger()) return; ouvrir(u);
+            /* Le rôle n'a pas pu être lu : on ne redirige pas, et on montre où
+               l'on en est. Partir en aveugle mènerait à une page de travail
+               qui n'affichera rien, sans dire pourquoi. */
+          }).catch(function(){ qtisSessionEmet(u); ouvrir(u); });
+        });
+    }
+
+    /* Un verrou qui ne se lève jamais transforme une coupure réseau en site
+       blanc. Deux garde-fous, parce qu'une promesse peut échouer OU ne jamais
+       répondre — et que le premier cas ne couvre pas le second :
+         - `.catch` : sans lui, le rejet n'est capté par personne, `apresSession`
+           n'est jamais appelée et rien ne lève le voile ;
+         - délai de garde : Supabase peut rester muet sans jamais rejeter. */
+    var repondu=false;
+    function sansSession(msg){
+      if(repondu) return; repondu=true;
+      qtisSessionEmet(null); fermer();
+      if(msg) dire(msg,true);
+    }
+    /* Le délai est réglable, à un seul usage : permettre au harnais de le
+       vérifier sans attendre huit secondes. L'exportateur ne l'émet jamais,
+       donc une page publiée prend toujours la valeur par défaut. */
+    var _delaiVerrou = parseInt(cfg.delaiVerrou,10) > 0 ? parseInt(cfg.delaiVerrou,10) : 8000;
+    setTimeout(function(){ sansSession('Le service de connexion ne répond pas. Réessayez ; si cela persiste, vérifiez la configuration Supabase de la page.'); }, _delaiVerrou);
+    cli.auth.getSession()
+      .then(function(r){ repondu=true; apresSession(r&&r.data&&r.data.session); })
+      .catch(function(e){ sansSession('Connexion indisponible : le service d’authentification est injoignable.'); });
+    cli.auth.onAuthStateChange(function(_e,sess){ repondu=true; apresSession(sess); });
+
+    var champId=root.querySelector('.qtis-login-id');
+    var champPw=root.querySelector('.qtis-login-pw');
+    var btn=root.querySelector('.qtis-login-submit');
+    var lienIns=root.querySelector('[data-qtis-signup]');
+    var lienMdp=root.querySelector('[data-qtis-reset]');
+
+    function tenter(inscription){
+      var mail=(champId&&champId.value||'').trim();
+      var mdp=(champPw&&champPw.value)||'';
+      if(!mail||!mdp){
+        /* Le message seul ne suffisait pas : il s'affiche EN BAS de la carte,
+           là où l'œil ne va pas après avoir cliqué sur « Créer un compte ». On
+           renvoie donc le curseur sur le champ manquant — le geste attendu
+           devient visible au lieu d'être écrit. */
+        dire(inscription
+          ? 'Pour créer un compte, saisissez d’abord une adresse e-mail et un mot de passe ci-dessus (6 caractères minimum), puis cliquez de nouveau.'
+          : 'Adresse et mot de passe requis.', true);
+        var cible = !mail ? champId : champPw;
+        if(cible && cible.focus) cible.focus();
+        return;
+      }
+      dire(inscription?'Création du compte…':'Connexion…');
+      var p=inscription ? cli.auth.signUp({email:mail,password:mdp})
+                        : cli.auth.signInWithPassword({email:mail,password:mdp});
+      p.then(function(r){
+        if(r.error){ dire(qtisAuthMsg(r.error.message),true); return; }
+        if(inscription&&!(r.data&&r.data.session)){
+          dire('Compte créé. Confirmez votre adresse via l’e-mail reçu, puis connectez-vous.');
+          return;
+        }
+        dire('');
+      }).catch(function(e){ dire(String(e.message||e),true); });
+    }
+    if(btn) btn.addEventListener('click',function(ev){ ev.preventDefault(); tenter(false); });
+    if(champPw) champPw.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); tenter(false); } });
+    if(lienIns) lienIns.addEventListener('click',function(ev){ ev.preventDefault(); tenter(true); });
+
+    /* ── Mot de passe oublie ────────────────────────────────────────────────
+       Deux moments, separes dans le temps :
+         1. ICI, on demande a Supabase d'envoyer un courriel de reinitialisation ;
+         2. PLUS BAS, au retour du lien recu, la session est ouverte en mode
+            « recovery » et on demande le nouveau mot de passe.
+       `redirectTo` pointe la page elle-meme : sans cela le visiteur atterrit
+       sur l'URL du site et perd son chemin. Cette adresse doit figurer dans les
+       URL de redirection autorisees du projet Supabase. */
+    if(lienMdp) lienMdp.addEventListener('click',function(ev){
+      ev.preventDefault();
+      var mail=(champId&&champId.value||'').trim();
+      if(!mail||mail.indexOf('@')<1){
+        dire('Saisissez d abord votre adresse e-mail ci-dessus, puis cliquez de nouveau.',true);
+        try{ champId.focus(); }catch(e){}
+        return;
+      }
+      dire('Envoi du lien...');
+      cli.auth.resetPasswordForEmail(mail,{redirectTo:location.href.split('#')[0]}).then(function(r){
+        if(r&&r.error){ dire(qtisAuthMsg(r.error.message),true); return; }
+        /* Message VOLONTAIREMENT identique que l'adresse existe ou non :
+           repondre « compte inconnu » permettrait de savoir qui a un compte. */
+        dire('Si un compte existe pour cette adresse, un lien de reinitialisation vient d etre envoye. Pensez aux indesirables.');
+      }).catch(function(e){ dire(String(e.message||e),true); });
+    });
+
+    /* Retour du courriel : Supabase ouvre une session temporaire et signale
+       l'evenement PASSWORD_RECOVERY. On ne laisse PAS entrer directement — on
+       demande le nouveau mot de passe, sinon le lien deviendrait une porte
+       d'entree permanente tant qu'il n'est pas utilise. */
+    try {
+      cli.auth.onAuthStateChange(function(evt){
+        if(evt!=='PASSWORD_RECOVERY') return;
+        var np=window.prompt('Nouveau mot de passe (6 caracteres minimum) :','');
+        if(np===null) return;
+        np=String(np);
+        if(np.length<6){ dire('Mot de passe trop court (6 caracteres minimum).',true); return; }
+        dire('Enregistrement...');
+        cli.auth.updateUser({password:np}).then(function(r){
+          if(r&&r.error){ dire(qtisAuthMsg(r.error.message),true); return; }
+          dire('Mot de passe modifie. Vous etes connecte.');
+        }).catch(function(e){ dire(String(e.message||e),true); });
+      });
+    } catch(e){}
+
+    /* Connecteurs externes. Ils ouvrent la page du fournisseur puis reviennent
+       ICI : onAuthStateChange reprend la main au retour, rien d'autre à faire.
+       redirectTo doit pointer la page elle-même, sinon Supabase renvoie sur
+       l'URL du site et l'utilisateur perd son chemin. */
+    /* RETOUR du fournisseur. Supabase ne renvoie pas une exception : en cas de
+       refus (fournisseur non activé dans Supabase, domaine de redirection non
+       autorisé, consentement annulé), il REVIENT sur la page avec l'erreur dans
+       le fragment d'URL — `#error=...&error_description=...`. Personne ne le
+       lisait. Du point de vue de l'utilisateur, cliquer sur « Continuer avec
+       Apple » ne faisait donc « rien » : aller-retour invisible, aucun message.
+       On lit le fragment au chargement, on le dit, puis on le nettoie — sinon
+       l'erreur ressort à chaque rafraîchissement. */
+    (function(){
+      var h=String(location.hash||'').replace(/^#/,''); if(!h) return;
+      var p={}; h.split('&').forEach(function(kv){ var i=kv.indexOf('='); if(i>0) p[kv.slice(0,i)]=decodeURIComponent(kv.slice(i+1).replace(/\+/g,' ')); });
+      if(!p.error && !p.error_description) return;
+      dire('Connexion refusée par le fournisseur : ' + (p.error_description || p.error)
+         + ' — vérifiez que ce fournisseur est activé dans Supabase et que l’adresse de cette page figure dans les URL de redirection autorisées.', true);
+      try { history.replaceState(null,'',location.pathname+location.search); } catch(e){}
+    })();
+
+    var provs=root.querySelectorAll('[data-prov]');
+    Array.prototype.forEach.call(provs,function(b){
+      b.addEventListener('click',function(ev){
+        ev.preventDefault();
+        dire('Redirection…');
+        var prov=b.getAttribute('data-prov');
+        /* On NE navigue PAS à l'aveugle. Si le fournisseur n'est pas activé
+           côté Supabase, `/authorize` répond 400 + JSON ; une navigation
+           directe REMPLACE le site par ce JSON brut
+           (« Unsupported provider: provider is not enabled ») — l'utilisateur
+           perd sa page et lit un message de développeur.
+           On demande donc l'URL sans naviguer, on la sonde, et on ne part que
+           si le serveur redirige vraiment. En cas de doute (CORS, réseau) on
+           navigue quand même : la sonde ne doit jamais empêcher un cas qui
+           marchait. */
+        cli.auth.signInWithOAuth({
+          provider:prov,
+          options:{redirectTo:location.href.split('#')[0], skipBrowserRedirect:true}
+        }).then(function(r){
+          if(r&&r.error){ dire(qtisAuthMsg(r.error.message),true); return; }
+          var url=r&&r.data&&r.data.url;
+          if(!url){ dire('Le fournisseur n’a pas renvoyé d’adresse de connexion.',true); return; }
+          function partir(){ location.href=url; }
+          function refus(txt){
+            var m=txt; try{ var j=JSON.parse(txt); m=j.msg||j.error_description||j.error||txt; }catch(e){}
+            if(/not enabled|unsupported provider/i.test(m)){
+              dire('Le fournisseur « '+prov+' » n’est pas activé dans votre projet Supabase. '
+                 + 'Ouvrez Authentication → Providers, activez-le, renseignez son identifiant et son secret, '
+                 + 'puis ajoutez l’adresse de cette page dans les URL de redirection autorisées.',true);
+              return;
+            }
+            dire('Connexion « '+prov+' » refusée : '+String(m).slice(0,200),true);
+          }
+          try {
+            fetch(url,{redirect:'manual'}).then(function(rep){
+              if(rep.type==='opaqueredirect'||rep.status===0||(rep.status>=300&&rep.status<400)){ partir(); return; }
+              if(rep.status>=400){ return rep.text().then(refus); }
+              partir();
+            }).catch(partir);
+          } catch(e){ partir(); }
+        }).catch(function(e){ dire(String(e.message||e),true); });
+      });
+    });
+
+    var sortir=root.querySelector('[data-qtis-logout]');
+    if(sortir) sortir.addEventListener('click',seDeconnecter);
+  }
+function qtisChampFiche(c){
+    var f=c.format||'texte', el;
+    if(f==='zone'){ el=document.createElement('textarea'); el.rows=3; }
+    else if(f==='choix'){
+      el=document.createElement('select');
+      var vide=document.createElement('option'); vide.value=''; vide.textContent='—'; el.appendChild(vide);
+      (c.options||[]).forEach(function(o){ var op=document.createElement('option'); op.value=o; op.textContent=o; el.appendChild(op); });
+    }
+    else if(f==='multi'){
+      /* Choix multiple : des cases, pas un <select multiple>. Le select
+         multiple exige de savoir qu'il faut maintenir Ctrl — sur mobile il est
+         a peu pres inutilisable, et sur un chantier on est sur mobile. */
+      el=document.createElement('div');
+      el.className='qtis-ff-multi';
+      el.style.cssText='display:flex;flex-wrap:wrap;gap:10px;';
+      (c.options||[]).forEach(function(o){
+        var l=document.createElement('label');
+        l.style.cssText='display:flex;align-items:center;gap:5px;cursor:pointer;font-weight:400;';
+        var cb=document.createElement('input'); cb.type='checkbox'; cb.value=o; cb.style.width='auto';
+        l.appendChild(cb); l.appendChild(document.createTextNode(o)); el.appendChild(l);
+      });
+      el.__qtisLire=function(){
+        var out=[]; var l=el.querySelectorAll('input[type=checkbox]');
+        for(var i=0;i<l.length;i++) if(l[i].checked) out.push(l[i].value);
+        return out;
+      };
+    }
+    else if(f==='fichier'){
+      el=document.createElement('div');
+      el.className='qtis-ff-fichier';
+      var inp=document.createElement('input'); inp.type='file';
+      if(c.accept) inp.accept=c.accept;
+      var nom=document.createElement('div');
+      nom.style.cssText='color:#6b7280;font-size:.85rem;margin-top:4px;';
+      inp.addEventListener('change',function(){
+        var fi=inp.files&&inp.files[0];
+        nom.textContent = fi ? (fi.name+' — '+(fi.size>1048576?(fi.size/1048576).toFixed(1)+' Mo':Math.round(fi.size/1024)+' Ko')) : '';
+      });
+      el.appendChild(inp); el.appendChild(nom);
+      /* La valeur definitive n'est connue qu'APRES le depot (elle contient le
+         chemin). On ne rend donc rien ici : c'est `enregistrer` qui remplace
+         par { chemin, nom, type, taille } une fois le fichier monte. */
+      el.__qtisLire=function(){ return null; };
+      el.__qtisFichier=function(){
+        var fi=inp.files&&inp.files[0];
+        return fi ? { nom:fi.name, type:fi.type||'application/octet-stream', blob:fi } : null;
+      };
+    }
+    else if(f==='signature'){
+      /* Signature manuscrite : c'est ce qui transforme un constat en document
+         accepte. Trace au doigt sur tablette, a la souris sur ordinateur. */
+      el=document.createElement('div');
+      el.className='qtis-ff-signature';
+      var cv=document.createElement('canvas');
+      cv.width=600; cv.height=200;
+      cv.style.cssText='border:1px dashed #cbd5e1;border-radius:8px;width:100%;max-width:420px;'
+        +'height:auto;touch-action:none;background:#fff;display:block;cursor:crosshair;';
+      var ct=cv.getContext('2d');
+      ct.lineWidth=2; ct.lineCap='round'; ct.strokeStyle='#111';
+      var trace=false, vide=true;
+      function pos(e){
+        var r=cv.getBoundingClientRect();
+        var x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+        var y=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
+        /* Le canvas est affiche a une taille CSS differente de sa taille reelle :
+           sans ce rapport, le trait suivrait le doigt avec un decalage croissant. */
+        return { x:x*(cv.width/r.width), y:y*(cv.height/r.height) };
+      }
+      function debut(e){ e.preventDefault(); trace=true; vide=false; var p=pos(e); ct.beginPath(); ct.moveTo(p.x,p.y); }
+      function bouge(e){ if(!trace) return; e.preventDefault(); var p=pos(e); ct.lineTo(p.x,p.y); ct.stroke(); }
+      function fin(){ trace=false; }
+      cv.addEventListener('mousedown',debut); cv.addEventListener('mousemove',bouge);
+      cv.addEventListener('mouseup',fin); cv.addEventListener('mouseleave',fin);
+      cv.addEventListener('touchstart',debut); cv.addEventListener('touchmove',bouge);
+      cv.addEventListener('touchend',fin);
+      var eff=document.createElement('button');
+      eff.type='button'; eff.textContent='Effacer';
+      eff.style.cssText='margin-top:6px;background:none;border:1px solid #e5e7eb;border-radius:8px;padding:4px 10px;cursor:pointer;font:inherit;';
+      eff.addEventListener('click',function(){ ct.clearRect(0,0,cv.width,cv.height); vide=true; });
+      el.appendChild(cv); el.appendChild(eff);
+      el.__qtisLire=function(){ return null; };
+      el.__qtisFichier=function(){
+        /* Une signature vide ne doit rien deposer : sinon chaque fiche
+           enregistree sans signature creerait une image blanche, et le champ
+           « signee » deviendrait toujours vrai. */
+        if(vide) return null;
+        var d=cv.toDataURL('image/png');
+        var b64=d.split(',')[1], bin=atob(b64), n=bin.length, arr=new Uint8Array(n);
+        for(var i=0;i<n;i++) arr[i]=bin.charCodeAt(i);
+        return { nom:'signature.png', type:'image/png', blob:new Blob([arr],{type:'image/png'}) };
+      };
+      el.__qtisVide=function(){ return vide; };
+    }
+    else if(f==='oui_non'){ el=document.createElement('input'); el.type='checkbox'; }
+    else {
+      el=document.createElement('input');
+      el.type = f==='nombre'?'number' : f==='date'?'date' : f==='email'?'email'
+              : f==='tel'?'tel' : f==='url'?'url' : 'text';
+    }
+    el.className=(el.className?el.className+' ':'')+'qtis-ff-champ';
+    el.setAttribute('data-cle',c.cle);
+    el.setAttribute('data-format',f);
+    /* `required` sur un div n'a aucun effet : l'obligation de ces trois formats
+       est verifiee a la lecture, pas par le navigateur. */
+    if(c.obligatoire && el.tagName!=='DIV') el.required=true;
+    return el;
+  }
+function qtisDeposerChamps(cli,uid,projet,liste){
+    if(!liste||!liste.length) return Promise.resolve({});
+    var out={};
+    return liste.reduce(function(chaine,it){
+      return chaine.then(function(){
+        var f=it.fichier;
+        var chemin=uid+'/'+(projet||'sans-projet')+'/'+Date.now()+'-'
+          +Math.random().toString(36).slice(2,8)+'-'+String(f.nom||'piece').replace(/[^\w.\-]+/g,'_');
+        return cli.storage.from('pieces').upload(chemin,f.blob,{contentType:f.type})
+          .then(function(r){
+            if(r.error) throw r.error;
+            out[it.cle]={ chemin:chemin, nom:f.nom, type:f.type, taille:(f.blob&&f.blob.size)||0 };
+          });
+      });
+    },Promise.resolve()).then(function(){ return out; });
+  }
+function qtisValeurLisible(v,c,cli,dest){
+    var f=(c&&c.format)||'texte';
+    if(v==null||v===''){ dest.textContent='—'; return; }
+    if(f==='multi'){
+      dest.textContent = (Object.prototype.toString.call(v)==='[object Array]') ? v.join(', ') : String(v);
+      return;
+    }
+    if((f==='fichier'||f==='signature') && v && v.chemin){
+      if(!cli){ dest.textContent=v.nom||'(piece jointe)'; return; }
+      dest.textContent='…';
+      /* URL SIGNEE, valable une heure : le bucket est prive. Une URL publique
+         serait plus simple et resterait valable indefiniment, y compris apres
+         le depart de la personne qui l'a copiee. */
+      cli.storage.from('pieces').createSignedUrl(v.chemin,3600).then(function(u){
+        var url=u&&u.data&&u.data.signedUrl;
+        if(!url){ dest.textContent=v.nom||'(piece jointe)'; return; }
+        dest.textContent='';
+        if(/^image\//.test(v.type||'') || /\.(png|jpe?g|webp|gif|avif)$/i.test(v.nom||'') || /\.(png|jpe?g|webp|gif|avif)$/i.test(v.chemin||'')){
+          var im=document.createElement('img'); im.src=url; im.alt=v.nom||'';
+          im.style.cssText='max-width:260px;border:1px solid #e5e7eb;border-radius:6px;display:block;';
+          dest.appendChild(im);
+        } else {
+          var a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener';
+          a.textContent=v.nom||'Ouvrir le document';
+          dest.appendChild(a);
+        }
+      }).catch(function(){ dest.textContent=v.nom||'(piece jointe indisponible)'; });
+      return;
+    }
+    if(v && typeof v==='object'){ dest.textContent = v.nom || '\u2014'; return; }
+    dest.textContent = v===true?'oui' : v===false?'non' : String(v);
+  }
+function qtisResDeCfg(cfg,texte,donnees){
+    if(!cfg||!cfg.resEnr||!texte) return;
+    if(typeof qtisResEnregistrer!=='function') return;
+    try{
+      qtisResEnregistrer(null,{ module:cfg.resModule||'', blocId:cfg.resBloc||'',
+        titre:cfg.resTitre||'', texte:String(texte), donnees:donnees||{},
+        exigeFiche:!!cfg.resExigeFiche });
+    }catch(e){}
+  }
+function qtisDateLocale(v,avecHeure){
+    if(!v) return '';
+    var d=new Date(v);
+    if(isNaN(d.getTime())) return String(v).slice(0,16).replace('T',' ');
+    try{
+      return avecHeure===false
+        ? d.toLocaleDateString()
+        : d.toLocaleDateString()+' '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    }catch(e){
+      /* Repli : mieux vaut une date brute qu'une case vide. */
+      return String(v).slice(0,16).replace('T',' ');
+    }
+  }
+function qtisZoneEtat(){
+    var z=document.getElementById('qtis-etat');
+    if(!z){
+      z=document.createElement('div'); z.id='qtis-etat';
+      z.style.cssText='position:fixed;left:16px;bottom:16px;z-index:9997;'
+        +'display:flex;flex-direction:column;gap:6px;align-items:flex-start;pointer-events:none;';
+      document.body.appendChild(z);
+    }
+    return z;
+  }
+function qtisFicheCourante(f){
+    if(f===undefined){
+      if(window.__QTIS_FICHE) return window.__QTIS_FICHE;
+      try{
+        var v=sessionStorage.getItem(QTIS_FICHE_CLE);
+        if(v){ window.__QTIS_FICHE=JSON.parse(v); return window.__QTIS_FICHE; }
+      }catch(e){}
+      return null;
+    }
+    window.__QTIS_FICHE=f||null;
+    try{
+      if(f) sessionStorage.setItem(QTIS_FICHE_CLE,JSON.stringify(f));
+      else sessionStorage.removeItem(QTIS_FICHE_CLE);
+    }catch(e){}
+    try{ window.dispatchEvent(new CustomEvent('qtis:fiche',{detail:f||null})); }catch(e){}
+    qtisFichePastille();
+    return f;
+  }
+function qtisFicheLibelle(f){
+    if(!f) return '';
+    var v=f.valeurs||{}, out=[];
+    for(var k in v){ if(v[k] && typeof v[k]==='string'){ out.push(v[k]); if(out.length===2) break; } }
+    return out.length ? out.join(' \u2014 ') : ('fiche ' + String(f.pk||'').slice(0,8));
+  }
+function qtisFichePastille(){
+    var f=qtisFicheCourante();
+    var el=document.getElementById('qtis-fiche-courante');
+    if(!f){ if(el&&el.parentNode) el.parentNode.removeChild(el); return; }
+    if(!el){
+      el=document.createElement('div'); el.id='qtis-fiche-courante';
+      el.style.cssText='background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;'
+        +'padding:7px 12px;border-radius:999px;font:600 12.5px/1.3 system-ui,sans-serif;'
+        +'box-shadow:0 1px 4px rgba(0,0,0,.08);max-width:60vw;overflow:hidden;'
+        +'text-overflow:ellipsis;white-space:nowrap;pointer-events:auto;';
+      qtisZoneEtat().appendChild(el);
+    }
+    el.textContent='Op\u00e9ration en cours : '+qtisFicheLibelle(f);
+  }
+function qtisFileLire(){
+    try { var v=localStorage.getItem(QTIS_FILE_CLE); return v?JSON.parse(v):[]; }
+    catch(e){ return []; }
+  }
+function qtisFileEcrire(l){
+    try { localStorage.setItem(QTIS_FILE_CLE,JSON.stringify(l||[])); } catch(e){}
+    qtisFileBadge();
+  }
+function qtisFileBadge(){
+    var n=qtisFileLire().length;
+    var b=document.getElementById('qtis-file-badge');
+    if(!n){ if(b&&b.parentNode) b.parentNode.removeChild(b); return; }
+    if(!b){
+      b=document.createElement('div'); b.id='qtis-file-badge';
+      b.style.cssText='background:#7c2d12;color:#fff;padding:8px 12px;border-radius:999px;'
+        +'font:600 13px/1.3 system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.25);'
+        +'cursor:pointer;pointer-events:auto;';
+      b.title='Cliquer pour réessayer maintenant';
+      b.addEventListener('click',function(){ qtisFileVider(window.__QTIS_RES_CFG); });
+      qtisZoneEtat().appendChild(b);
+    }
+    b.textContent = n===1 ? '1 résultat en attente d’envoi' : (n+' résultats en attente d’envoi');
+  }
+function qtisResCle(){
+    return 'r'+Date.now().toString(36)+Math.random().toString(36).slice(2,10);
+  }
+function qtisResFichiers(cli,uid,projet,blobs){
+    if(!blobs||!blobs.length) return Promise.resolve([]);
+    var faits=[];
+    return blobs.reduce(function(chaine,f){
+      return chaine.then(function(){
+        var nom=(f.nom||'piece')+'';
+        var chemin=uid+'/'+(projet||'sans-projet')+'/'+Date.now()+'-'
+          +Math.random().toString(36).slice(2,8)+'-'+nom.replace(/[^\w.\-]+/g,'_');
+        return cli.storage.from('pieces').upload(chemin,f.blob,{contentType:f.type||'application/octet-stream'})
+          .then(function(r){
+            if(r.error) throw r.error;
+            faits.push({chemin:chemin,nom:nom,type:f.type||'',taille:(f.blob&&f.blob.size)||0});
+          });
+      });
+    },Promise.resolve()).then(function(){ return faits; });
+  }
+function qtisResEnregistrer(cfg,res){
+    cfg=cfg||window.__QTIS_RES_CFG||{};
+    res=res||{};
+    var fiche=qtisFicheCourante();
+    /* Le garde-fou se decide PAR BLOC (un bloc peut exiger une fiche, un
+       autre non sur la meme page) mais il etait lu dans la config de PAGE.
+       Il n'aurait jamais mordu. */
+    var exige = res.exigeFiche || cfg.exigeFiche;
+    if(exige && (!fiche||!fiche.pk)){
+      qtisResDire('Aucune opération sélectionnée : le résultat n’a pas été enregistré. Créez ou choisissez une fiche, puis relancez.','ko');
+      return Promise.resolve(false);
+    }
+    var ligne={
+      cle_client: qtisResCle(),
+      projet_id:  cfg.projet||'',
+      fiche_pk:   (fiche&&fiche.pk)||null,
+      module:     res.module||'',
+      bloc_id:    res.blocId||'',
+      titre:      res.titre||'',
+      texte:      res.texte||'',
+      donnees:    res.donnees||{},
+      empreinte:  res.empreinte||''
+    };
+    var l=qtisFileLire();
+    l.push({ligne:ligne});
+    qtisFileEcrire(l);
+    /* Les fichiers sont envoyés dans la foulée s'il y a du réseau ; s'il n'y en
+       a pas, seule la partie texte partira plus tard. */
+    return qtisFileVider(cfg,res.fichiers);
+  }
+function qtisResDire(msg,cls){
+    var z=document.getElementById('qtis-res-msg');
+    if(!z){
+      z=document.createElement('div'); z.id='qtis-res-msg';
+      z.style.cssText='position:fixed;right:16px;bottom:16px;z-index:9999;max-width:340px;padding:10px 14px;'
+        +'border-radius:8px;font:500 13px/1.4 system-ui,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.2);';
+      document.body.appendChild(z);
+    }
+    z.style.background = cls==='ko' ? '#fef2f2' : '#ecfdf5';
+    z.style.color      = cls==='ko' ? '#991b1b' : '#065f46';
+    z.style.border     = '1px solid '+(cls==='ko' ? '#fecaca' : '#a7f3d0');
+    z.textContent=msg;
+    clearTimeout(z.__t);
+    z.__t=setTimeout(function(){ if(z.parentNode) z.parentNode.removeChild(z); }, cls==='ko'?9000:4000);
+  }
+function qtisFileVider(cfg,blobs){
+    cfg=cfg||window.__QTIS_RES_CFG||{};
+    var l=qtisFileLire();
+    if(!l.length) return Promise.resolve(true);
+    var cli=qtisSb(cfg);
+    if(!cli){ qtisResDire('Enregistrement indisponible : Supabase n’est pas configuré pour cette page.','ko'); return Promise.resolve(false); }
+    if(window.__QTIS_FILE_ENCOURS) return Promise.resolve(false);
+    window.__QTIS_FILE_ENCOURS=1;
+
+    return cli.auth.getUser().then(function(u){
+      var uid=u&&u.data&&u.data.user&&u.data.user.id;
+      if(!uid) throw new Error('non-connecte');
+      var reste=qtisFileLire();
+      function suivante(){
+        if(!reste.length) return Promise.resolve(true);
+        var item=reste[0];
+        var pj = blobs && reste.length===1 ? blobs : null;   // les blobs ne valent que pour l'envoi immédiat
+        return qtisResFichiers(cli,uid,item.ligne.projet_id,pj).then(function(fichiers){
+          var ligne={}; for(var k in item.ligne) ligne[k]=item.ligne[k];
+          ligne.fichiers=fichiers;
+          return cli.from('app_resultats').insert(ligne);
+        }).then(function(r){
+          /* 23505 = violation d'unicité : la ligne EXISTE déjà côté serveur.
+             C'est le cas normal d'un renvoi après réponse perdue, pas une
+             erreur. La traiter comme un échec ferait boucler la file. */
+          if(r.error && r.error.code!=='23505') throw r.error;
+          reste.shift(); qtisFileEcrire(reste);
+          return suivante();
+        });
+      }
+      return suivante();
+    }).then(function(){
+      qtisResDire('Résultat enregistré ✓','ok');
+      return true;
+    }).catch(function(e){
+      var m=String((e&&e.message)||e);
+      qtisResDire(m==='non-connecte'
+        ? 'Connectez-vous pour enregistrer le résultat. Il est gardé en attente.'
+        : 'Réseau indisponible : le résultat est gardé et repartira tout seul dès la reconnexion.','ko');
+      return false;
+    }).then(function(ok){
+      window.__QTIS_FILE_ENCOURS=0;
+      qtisFileBadge();
+      return ok;
+    });
+  }
+function qtisResInit(cfg){
+    window.__QTIS_RES_CFG=cfg||{};
+    qtisFileBadge();
+    /* Au rechargement, l'operation en cours revient de sessionStorage :
+       la pastille doit le montrer tout de suite. */
+    try{ qtisFicheCourante(); qtisFichePastille(); }catch(e){}
+    try { window.addEventListener('online',function(){ qtisFileVider(cfg); }); } catch(e){}
+    try { window.addEventListener('qtis:session',function(){ qtisFileVider(cfg); }); } catch(e){}
+    if(navigator.onLine!==false) setTimeout(function(){ qtisFileVider(cfg); },1200);
+  }
+function qtisInitFormFiche(id,cfg){
+    cfg=cfg||{};
+    var root=document.getElementById('qtis-ff-'+id); if(!root) return;
+    var cli=qtisSb(cfg);
+    var zChamps=root.querySelector('[data-part="champs"]');
+    var zMsg=root.querySelector('[data-part="message"]');
+    var btn=root.querySelector('[data-part="bouton"]');
+    var zSortie=root.querySelector('[data-part="sortie"]');
+    /* La couleur est posee ICI, pas par une regle CSS. La regle vivait dans un
+       bloc de styles qui n'accompagne pas toutes les pages : « Enregistre ✓ »
+       s'affichait alors en noir, exactement comme un refus. Or c'est la couleur
+       qu'on lit en premier — sur un telephone, en exterieur, avant meme le
+       texte. Le message est ecrit par ce code : qu'il porte aussi son etat. */
+    function dire(t,cls){
+      if(!zMsg) return;
+      zMsg.textContent=t||'';
+      zMsg.className='qtis-ff-msg'+(cls?' '+cls:'');
+      zMsg.style.color = cls==='ok' ? '#15803d' : cls==='ko' ? '#b91c1c' : '';
+      zMsg.style.fontWeight = cls ? '600' : '';
+    }
+
+    if(!cli){ dire('Enregistrement indisponible : Supabase n’est pas configuré pour cette page.','ko'); return; }
+
+    var champs=[];
+    function dessiner(defs){
+      champs=(defs||[]).filter(function(c){ return c && !c.archive; });
+      if(!zChamps) return;
+      zChamps.innerHTML='';
+      champs.forEach(function(c){
+        var w=document.createElement('div'); w.className='qtis-ff-l';
+        var l=document.createElement('label'); l.textContent=c.libelle||c.cle;
+        /* Les MÊMES data-part que dans l'aperçu du studio : sans eux, le style
+           choisi dans la barre habillerait l'aperçu et pas la page livrée —
+           « ça marche dans le studio, pas en ligne ». */
+        l.setAttribute('data-part','etiquette');
+        if(c.obligatoire){ var e=document.createElement('span'); e.textContent=' *'; e.style.color='#b91c1c'; e.setAttribute('data-part','requis'); l.appendChild(e); }
+        var _ctl=qtisChampFiche(c); _ctl.setAttribute('data-part','champ');
+        w.appendChild(l); w.appendChild(_ctl);
+        zChamps.appendChild(w);
+      });
+    }
+
+    /* La définition vient de la base, pas de la page : c’est ce qui permet
+       d’ajouter un champ dans les Données sans republier le site. La copie
+       embarquée à l’export sert de repli quand la base est injoignable — un
+       formulaire vide n’apprend rien à personne. */
+    dessiner(cfg.champs||[]);
+    cli.from('app_types').select('champs,version')
+      .eq('projet_id',cfg.projet).eq('type_id',cfg.type).limit(1)
+      .then(function(r){
+        if(r.error||!r.data||!r.data.length) return;
+        dessiner(r.data[0].champs||[]);
+        cfg.version=r.data[0].version||cfg.version;
+      }).catch(function(){});
+
+    function valeurs(){
+      var v={},manque=null,aDeposer=[];
+      champs.forEach(function(c){
+        var el=zChamps.querySelector('[data-cle="'+c.cle+'"]');
+        if(!el) return;
+        var val;
+        if(typeof el.__qtisLire==='function') val=el.__qtisLire();
+        else if(el.type==='checkbox') val=!!el.checked;
+        else val=String(el.value||'').trim();
+
+        /* Fichier et signature : le Blob est mis de cote, la valeur definitive
+           (le chemin) n'existera qu'apres le depot. On depose a
+           l'ENREGISTREMENT et pas au choix du fichier : sinon un formulaire
+           ouvert puis abandonne laisserait un fichier sans fiche, invisible et
+           impossible a rattacher. */
+        if(typeof el.__qtisFichier==='function'){
+          var fi=el.__qtisFichier();
+          if(fi){ aDeposer.push({cle:c.cle,fichier:fi}); val='__EN_DEPOT__'; }
+          else val=null;
+        }
+
+        var absent = (val===''||val===false||val==null
+                      || (Object.prototype.toString.call(val)==='[object Array]' && !val.length));
+        if(c.obligatoire && absent) { if(!manque) manque=c.libelle||c.cle; }
+        if(val!=='__EN_DEPOT__') v[c.cle]=val;
+      });
+      return { v:v, manque:manque, aDeposer:aDeposer };
+    }
+
+    function enregistrer(){
+      var r=valeurs();
+      if(r.manque){ dire('Champ obligatoire : '+r.manque,'ko'); return; }
+      if(btn) btn.disabled=true;
+      dire('Enregistrement…');
+
+      cli.auth.getUser().then(function(u){
+        var uid=u&&u.data&&u.data.user&&u.data.user.id;
+        if(!uid){ dire('Connectez-vous pour enregistrer.','ko'); if(btn) btn.disabled=false; return; }
+        /* Les pieces partent AVANT la fiche : une fiche qui referencerait un
+           chemin dont le depot a echoue afficherait une image cassee sans
+           qu'aucun message ne l'explique. */
+        return qtisDeposerChamps(cli,uid,cfg.projet,r.aDeposer).then(function(chemins){
+          for(var k in chemins) r.v[k]=chemins[k];
+          return cli.from('app_fiches').insert({
+          projet_id:cfg.projet, type_id:cfg.type, valeurs:r.v,
+          auteur:uid, type_version:cfg.version||1
+        }).select().single(); }).then(function(res){
+          if(res.error) throw res.error;
+          var fiche=res.data;
+          /* La fiche courante est publiée : le bloc Photo s’y rattache, et le
+             constat devient opposable à un chantier nommé. */
+          qtisFicheCourante({ pk:fiche.pk, type:cfg.type, valeurs:r.v });
+          try { window.dispatchEvent(new CustomEvent('qtis:fiche',{detail:window.__QTIS_FICHE})); } catch(e){}
+          dire('Enregistré ✓','ok');
+          if(zChamps) zChamps.querySelectorAll('.qtis-ff-champ').forEach(function(el){
+            if(el.type==='checkbox') el.checked=false; else el.value='';
+          });
+          if(cfg.promptId) return traiterQtis(fiche,r.v);
+        });
+      }).catch(function(e){ dire(qtisFicheMsg(e),'ko'); })
+        .then(function(){ if(btn) btn.disabled=false; });
+    }
+
+    /* Traitement QTIS : la saisie part au prompt, la réponse revient et se
+       range dans un champ de la MÊME fiche. La fiche contient donc la saisie
+       et sa qualification — c’est ce qui la rend exploitable ensuite. */
+    function traiterQtis(fiche,v){
+      if(zSortie){ zSortie.textContent='Analyse…'; }
+      var texte=champs.map(function(c){ return (c.libelle||c.cle)+' : '+(v[c.cle]===true?'oui':v[c.cle]===false?'non':v[c.cle]||''); }).join('\n');
+      return fetch(_qapi('/chat.php'),{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({message:texte,is_stream:false,suggested_prompt_id:cfg.promptId})})
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var rep=ans(d)||'';
+          if(zSortie) zSortie.textContent=rep;
+          try { qtisPublier('qtis-ff-out-'+id,rep); } catch(e){}
+          if(!cfg.champReponse||!rep) return;
+          var maj={}; for(var k in v) maj[k]=v[k];
+          maj[cfg.champReponse]=rep;
+          return cli.from('app_fiches').update({valeurs:maj}).eq('pk',fiche.pk);
+        })
+        .catch(function(e){ if(zSortie) zSortie.textContent='Erreur : '+String(e.message||e); });
+    }
+
+    if(btn) btn.addEventListener('click',function(ev){ ev.preventDefault(); enregistrer(); });
+  }
+function qtisInitListeFiches(id,cfg){
+    cfg=cfg||{};
+    var root=document.getElementById('qtis-lf-'+id); if(!root) return;
+    var cli=qtisSb(cfg);
+    var zone=root.querySelector('[data-part="zone"]');
+    if(!cli){ if(zone) zone.textContent='Liste indisponible : Supabase n’est pas configuré pour cette page.'; return; }
+
+    var cols=(cfg.colonnes||[]).filter(function(c){ return c && c.cle; });
+
+    function charger(){
+      var lim=Math.min(200,Math.max(1,parseInt(cfg.limite,10)||50));
+      /* « Les miennes » se demande explicitement : on filtre sur l'auteur.
+         « Toutes » ne se demande pas — aucun filtre, et c'est la policy qui
+         tranche. Filtrer ici sur un rôle qu'on aurait deviné donnerait
+         l'illusion d'un contrôle d'accès là où il n'y a qu'un affichage.
+         Une SEULE requête est construite : la première version en fabriquait
+         une puis la jetait, ce qui rendait le chemin impossible à suivre. */
+      var attendreAuteur = (cfg.portee==='toutes')
+        ? Promise.resolve(null)
+        : cli.auth.getUser().then(function(u){
+            return (u&&u.data&&u.data.user&&u.data.user.id)||'00000000-0000-0000-0000-000000000000';
+          });
+      attendreAuteur.then(function(uid){
+        var q=cli.from('app_fiches').select('pk,valeurs,auteur,created_at')
+          .eq('projet_id',cfg.projet).eq('type_id',cfg.type).eq('archive',false);
+        if(uid!==null) q=q.eq('auteur',uid);
+        return q.order('created_at',{ascending:false}).limit(lim);
+      }).then(function(r){
+        if(r&&r.error){ if(zone) zone.textContent='Erreur : '+r.error.message; return; }
+        rendre((r&&r.data)||[]);
+      }).catch(function(e){ if(zone) zone.textContent='Erreur : '+String(e.message||e); });
+    }
+
+    /* Panneau de consultation. Il montre TOUS les champs de la fiche, y compris
+       ceux qui ne sont pas en colonne, et la réponse QTIS quand il y en a une —
+       elle est rangée dans les valeurs comme un champ ordinaire.
+       On lit la définition du type (`cfg.champs`) plutôt que les clés présentes
+       dans l'enregistrement : ainsi un champ resté vide s'affiche quand même,
+       et l'ordre est celui de la fiche, pas celui d'un objet JSON. */
+    /* Charge et affiche les resultats d'une operation.
+
+       Les photos vivent dans un bucket PRIVE : leur URL n'est pas devinable et
+       ne s'ouvre pas sans droit. On demande donc une URL signee, valable une
+       heure — assez pour consulter, pas assez pour circuler. Une URL publique
+       serait plus simple et resterait valable indefiniment, y compris apres le
+       depart de la personne qui l'a copiee. */
+    function qtisResListe(cli,fichePk,zone){
+      if(!cli||!fichePk||!zone) return;
+      cli.from('app_resultats').select('*').eq('fiche_pk',fichePk).order('cree_le',{ascending:false}).limit(50)
+        .then(function(r){
+          if(r.error) throw r.error;
+          var l=r.data||[];
+          if(!l.length){ zone.textContent='Aucune analyse rattachee a cette operation.'; return; }
+          zone.innerHTML=''; zone.style.color='';
+          l.forEach(function(x){
+            var c=document.createElement('div');
+            c.style.cssText='border:1px solid #e5e7eb;border-radius:8px;padding:10px;margin-bottom:8px;';
+            var e=document.createElement('div');
+            e.style.cssText='color:#6b7280;font-size:.8rem;margin-bottom:4px;';
+            e.textContent=(x.titre||x.module||'Resultat')+' — '+qtisDateLocale(x.cree_le);
+            c.appendChild(e);
+            var t=document.createElement('div'); t.style.whiteSpace='pre-wrap'; t.textContent=x.texte||'';
+            c.appendChild(t);
+            (x.fichiers||[]).forEach(function(f2){
+              cli.storage.from('pieces').createSignedUrl(f2.chemin,3600).then(function(u){
+                var url=u&&u.data&&u.data.signedUrl; if(!url) return;
+                var im=document.createElement('img'); im.src=url; im.alt=f2.nom||'';
+                im.style.cssText='max-width:220px;border-radius:6px;margin-top:8px;display:block;';
+                c.appendChild(im);
+              }).catch(function(){});
+            });
+            if(x.empreinte){
+              var p2=document.createElement('div');
+              p2.style.cssText='color:#6b7280;font-size:.75rem;margin-top:6px;font-family:ui-monospace,monospace;';
+              p2.textContent='Empreinte : '+String(x.empreinte).slice(0,24)+'...';
+              c.appendChild(p2);
+            }
+            zone.appendChild(c);
+          });
+        })
+        .catch(function(e){ zone.textContent='Analyses indisponibles : '+String((e&&e.message)||e); });
+    }
+    function ouvrirFiche(f){
+      var anc=document.getElementById('qtis-fiche-vue');
+      if(anc&&anc.parentNode) anc.parentNode.removeChild(anc);
+      var ov=document.createElement('div');
+      ov.id='qtis-fiche-vue';
+      ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true');
+      ov.style.cssText='position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,.45);'
+        + 'display:flex;align-items:center;justify-content:center;padding:20px;';
+      var bo=document.createElement('div');
+      bo.style.cssText='background:#fff;border-radius:12px;max-width:560px;width:100%;'
+        + 'max-height:80vh;overflow:auto;padding:20px;'
+        + 'font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#111;';
+      var h=document.createElement('div');
+      h.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;';
+      var ti=document.createElement('strong'); ti.textContent=(cfg.titre||'Fiche');
+      var fe=document.createElement('button');
+      fe.type='button'; fe.textContent='Fermer'; fe.setAttribute('aria-label','Fermer');
+      fe.style.cssText='background:none;border:1px solid #e5e7eb;border-radius:8px;padding:4px 10px;cursor:pointer;font:inherit;';
+      h.appendChild(ti); h.appendChild(fe); bo.appendChild(h);
+      var dl=document.createElement('dl'); dl.style.cssText='margin:0;';
+      var liste=(cfg.champs&&cfg.champs.length)?cfg.champs:cols;
+      liste.forEach(function(c){
+        var v=(f.valeurs||{})[c.cle];
+        var dt=document.createElement('dt');
+        dt.textContent=c.libelle||c.cle;
+        dt.style.cssText='color:#6b7280;font-size:.8rem;margin-top:10px;';
+        var dd=document.createElement('dd');
+        dd.style.cssText='margin:2px 0 0;white-space:pre-wrap;';
+        qtisValeurLisible(v,c,cli,dd);
+        dl.appendChild(dt); dl.appendChild(dd);
+      });
+      var dtd=document.createElement('dt');
+      dtd.textContent='Créée le'; dtd.style.cssText='color:#6b7280;font-size:.8rem;margin-top:10px;';
+      var ddd=document.createElement('dd');
+      ddd.style.cssText='margin:2px 0 0;'; ddd.textContent=qtisDateLocale(f.created_at);
+      dl.appendChild(dtd); dl.appendChild(ddd);
+      bo.appendChild(dl);
+
+      /* Les RÉSULTATS rattachés à cette opération : analyses photo, réponses
+         de modules, tout ce qui a été produit à propos d'elle. C'est le geste
+         naturel — « j'ouvre cette opération, je vois ce qui s'y rattache » —
+         et c'est ce qui rend le rattachement utile plutôt que théorique. */
+      var zr=document.createElement('div'); zr.style.cssText='margin-top:18px;border-top:1px solid #eee;padding-top:12px;';
+      var tr2=document.createElement('div'); tr2.style.cssText='font-weight:700;margin-bottom:8px;';
+      tr2.textContent='Analyses et résultats'; zr.appendChild(tr2);
+      var zl=document.createElement('div'); zl.textContent='Chargement…'; zl.style.color='#6b7280'; zr.appendChild(zl);
+      bo.appendChild(zr);
+      qtisResListe(cli,f.pk,zl);
+
+      ov.appendChild(bo);
+      function fermerVue(){ if(ov.parentNode) ov.parentNode.removeChild(ov); document.removeEventListener('keydown',ech); }
+      /* Échap et clic sur le fond : une fenêtre sans sortie évidente se referme
+         mal, surtout au clavier. */
+      function ech(e){ if(e.key==='Escape') fermerVue(); }
+      fe.addEventListener('click',fermerVue);
+      ov.addEventListener('mousedown',function(e){ if(e.target===ov) fermerVue(); });
+      document.addEventListener('keydown',ech);
+      document.body.appendChild(ov);
+      fe.focus();
+    }
+
+    function rendre(l){
+      if(!zone) return;
+      if(!l.length){ zone.innerHTML='<div class="qtis-lf-vide">Aucune fiche.</div>'; return; }
+      var t=document.createElement('table'); t.className='qtis-lf-t';
+      /* Le squelette EXPORTE porte ce style en ligne ; ce tableau-ci le
+         remplace des que les fiches arrivent, et ne reprenait que la classe.
+         Or `.qtis-lf-t` n'est definie dans aucune feuille : le tableau perdait
+         sa largeur et se retractait au contenu. L'apercu du studio, lui, pose
+         le style en dur — d'ou un defaut invisible avant publication.
+         Meme declaration des deux cotes : une seule apparence. */
+      t.style.cssText='width:100%;border-collapse:collapse;font-size:13px;';
+      var tr=document.createElement('tr');
+      cols.forEach(function(c){ var th=document.createElement('th'); th.setAttribute('data-part','entete'); th.textContent=c.libelle||c.cle; tr.appendChild(th); });
+      var thd=document.createElement('th'); thd.setAttribute('data-part','entete'); thd.textContent='Date'; tr.appendChild(thd);
+      var thv=document.createElement('th'); thv.textContent=''; tr.appendChild(thv);
+      t.appendChild(tr);
+      l.forEach(function(f){
+        var r=document.createElement('tr');
+        cols.forEach(function(c){
+          var td=document.createElement('td'); td.setAttribute('data-part','cellule');
+          var v=(f.valeurs||{})[c.cle];
+          /* Dans le TABLEAU, une piece jointe reste une mention courte : y
+             afficher l'image ferait exploser la hauteur des lignes et
+             declencherait une URL signee par cellule a chaque rendu. */
+          if(c.format==='multi' && Object.prototype.toString.call(v)==='[object Array]') td.textContent=v.join(', ');
+          else if((c.format==='fichier'||c.format==='signature') && v && v.chemin) td.textContent=v.nom||'piece jointe';
+          else if(v && typeof v==='object') /* Filet : une valeur objet sans format connu (fiche ancienne, colonne    d'un projet publié avant) ne doit JAMAIS sortir en « [object Object] ». */ td.textContent = v.nom || (Object.prototype.toString.call(v)==='[object Array]' ? v.join(', ') : '—');
+          else td.textContent = v===true?'oui' : v===false?'non' : (v==null?'':String(v));
+          r.appendChild(td);
+        });
+        var td2=document.createElement('td');
+        td2.textContent=qtisDateLocale(f.created_at,false);
+        r.appendChild(td2);
+        /* CONSULTATION. Le tableau ne montre que les colonnes choisies — quatre
+           par défaut. Une fiche en compte souvent bien plus, dont la réponse
+           QTIS, rangée elle aussi dans les valeurs. Sans ce bouton, tout ce qui
+           n'est pas en colonne était saisi puis invisible : on écrivait dans un
+           trou. Le geste est aussi porté par la LIGNE entière — c'est ce qu'on
+           essaie d'abord — le bouton restant la cible explicite et accessible. */
+        var tdV=document.createElement('td'); tdV.className='qtis-lf-actions';
+        var bV=document.createElement('button');
+        bV.type='button'; bV.className='qtis-lf-voir'; bV.setAttribute('data-part','voir');
+        bV.setAttribute('aria-label','Voir la fiche');
+        bV.title='Voir la fiche';
+        bV.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+        bV.style.cssText='background:none;border:0;padding:4px;cursor:pointer;color:#1a56db;line-height:0;';
+        bV.addEventListener('click',function(ev){ ev.stopPropagation(); ouvrirFiche(f); });
+        tdV.appendChild(bV); r.appendChild(tdV);
+        r.style.cursor='pointer';
+        r.addEventListener('click',function(){ ouvrirFiche(f); });
+        t.appendChild(r);
+      });
+      zone.innerHTML=''; zone.appendChild(t);
+    }
+
+    /* La liste demande la session ELLE-MÊME, puis suit les changements.
+       La première version se contentait d'écouter le bloc Connexion : sur une
+       page qui n'en contient pas — un back-office atteint déjà connecté — la
+       liste restait vide, sans le moindre message. Dépendre d'un autre bloc
+       pour fonctionner est une dépendance de trop. */
+    function etatSession(u){
+      if(u) charger();
+      else if(zone) zone.innerHTML='<div class="qtis-lf-vide">Connectez-vous pour voir les fiches.</div>';
+    }
+    cli.auth.getSession().then(function(r){ etatSession(r&&r.data&&r.data.session&&r.data.session.user); })
+      .catch(function(){ etatSession(null); });
+    window.addEventListener('qtis:session',function(e){ etatSession(e.detail); });
+  }
+  (function(){var rb=document.createElement('button');rb.id='qc-refresh';rb.type='button';rb.title='Rafraichir les donnees QTIS';rb.textContent='\u21bb Rafraichir';rb.style.cssText='position:fixed;right:16px;top:16px;z-index:9998;background:#0d9488;color:#fff;border:none;border-radius:999px;padding:10px 16px;font:600 13px sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2);';rb.addEventListener('click',QC_REFRESH);document.body.appendChild(rb);if(QC_TTL>0)setInterval(QC_REFRESH,QC_TTL);})();
+  qtisInitCompte({"sbUrl":"https://ihlqjrqlribexyssocbt.supabase.co","sbKey":"sb_publishable_HsjGdO56IKAwvmX9jFc9zw_xtj34hyH","projet":"proj-mt8hx6m0-xif9z","connexion":"index.html"});
+})();
+</script>
+<!-- Composants QTIS : deploie cette page a cote d'un dossier api/. -->
+</body>
+</html>
